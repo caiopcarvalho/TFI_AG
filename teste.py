@@ -6,7 +6,7 @@ print("Git com vs")
 print(randint(1,1999))
 
 with open('userURL.csv','r') as filecsv:
-   kkk = csv.reader(filecsv, delimiter='/')
+   s = csv.reader(filecsv, delimiter='/')
          for row in reader:
           writeFile(row[0])
 
