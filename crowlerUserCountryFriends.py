@@ -31,9 +31,7 @@ def findFriends(pk,country):
                        writeFile(pk,pkFriend[6],1)
                     else:
                        writeFile(pk,pkFriend[6],0)
-                    #print(url)
-                    #print(country)
-            #sem amigos                            
+                                                  
             else:
               writeFile(pk)                          
                                                           
