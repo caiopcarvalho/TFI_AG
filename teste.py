@@ -1,16 +1,6 @@
-from random import randint
-#import requests
+import requests, csv
 
-print("Olá mundo")
-print("Git com vs")
-print(randint(1,1999))
-
-with open('userURL.csv','r') as filecsv:
-   s = csv.reader(filecsv, delimiter='/')
-         for row in reader:
-          writeFile(row[0])
-
-def writeFile(pk):
-   with open('userID.csv', 'w') as f:
-   data = csv.writer(f)
-    data.writerow(pk);
+with open('userPK.csv', newline='') as f:
+  reader =csv.reader(f, delimiter=',')
+  for row in reader:
+    print(row)

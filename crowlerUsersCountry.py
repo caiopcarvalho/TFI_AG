@@ -4,10 +4,10 @@ from bs4 import BeautifulSoup
 
 i=1
 
-with open('userPK.csv', 'w') as f:
+with open('userPK.csv', 'w',newline='') as f:
     writeit = csv.writer(f,delimiter=',')
 
-    for i in range(5): 
+    for i in range(1): 
         url = "http://www.englishbaby.com/findfriends/gallery/search?page="+ str(i) 
         r = requests.get(url)
         print (r.url, r.status_code)
@@ -20,6 +20,5 @@ with open('userPK.csv', 'w') as f:
               url = li.find_next('a').get('href')
               pk = url.split('/')
               writeit.writerow([pk[6]]+[country])
-            
-
+        
 
