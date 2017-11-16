@@ -2,16 +2,15 @@ import requests, csv
 from bs4 import BeautifulSoup
 from collections import Counter
 
-def writeFile (pk,pkFriend=" ", amigo=" "):
-    with open('users_country_friends.csv', 'a') as f:
+def writeFile (pk,pkFriend=" "):
+    with open('users_friends.csv', 'a') as f:
 	    writeit = csv.writer(f, delimiter=',', lineterminator='\n')
-	    if(amigo == " "):
+	    if(pkFriend == " "):
 	    	writeit.writerow([pk])
 	    else:
-	    	writeit.writerow([pk] + [pkFriend] + [amigo])
+	    	writeit.writerow([pk] + [pkFriend])
 
-def findFriends(pk,country): 
-	#for i in range (3):
+def findFriends(pk): 
     url ="http://www.englishbaby.com/findfriends/gallery/detail/"+pk
     r=requests.get(url)
     print(r.url,r.status_code)
@@ -26,11 +25,7 @@ def findFriends(pk,country):
                 for row in table.find_all('td'):
                     url = row.find_next('a').get('href')
                     pkFriend = url.split('/')
-                    countryFriend= row.find('span').get_text()
-                    if(Counter(countryFriend)==Counter(country)):
-                       writeFile(pk,pkFriend[6],1)
-                    else:
-                       writeFile(pk,pkFriend[6],0)
+                    writeFile(pk,pkFriend[6])
                                                   
             else:
               writeFile(pk)                          
@@ -38,5 +33,5 @@ def findFriends(pk,country):
 with open('userPK.csv','r') as f:
 	data = csv.reader(f, delimiter=',')
 	for row in data:
-		findFriends(row[0], row[1])		
+		findFriends(row[0])		
     	   
