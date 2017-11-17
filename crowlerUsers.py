@@ -2,12 +2,12 @@ import requests
 import csv
 from bs4 import BeautifulSoup
 
-i=401
+i=1
 
 with open('userPK2.csv', 'w',newline='') as f:
     writeit = csv.writer(f,delimiter=',')
 
-    for i in range(200,400): 
+    for i in range(1,400): 
         url = "http://www.englishbaby.com/findfriends/gallery/search?page="+ str(i) 
         r = requests.get(url)
         print (r.url, r.status_code)
