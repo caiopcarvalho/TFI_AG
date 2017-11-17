@@ -16,7 +16,7 @@ with open('userPK2.csv', 'w',newline='') as f:
         soup = BeautifulSoup (plain_text, "html.parser")
         
         for li in soup.findAll ('div', {'class': 'lesson_list_image'}):
-              #coleta pais do vértice            
+              #coleta país do vértice            
               #country= li.find('em').get_text()
               url = li.find_next('a').get('href')
               pk = url.split('/')
