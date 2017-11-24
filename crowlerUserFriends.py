@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 
 def writeFile (pk,pkFriend=" "):
-    with open('users_friends20.csv', 'a') as f:
+    with open('users_friends.csv', 'a') as f:
 	    writeit = csv.writer(f, delimiter=',', lineterminator='\n')
 	    if(pkFriend == " "):
 	    	writeit.writerow([pk])
@@ -25,13 +25,16 @@ def findFriends(pk):
                 for row in table.find_all('td'):
                     url = row.find_next('a').get('href')
                     pkFriend = url.split('/')
-                    writeFile(pk,pkFriend[6])
-                    print(pkFriend[6])
+                    pf = len(pkFriend)
+                    if(pf==7):
+                        writeFile(pk,pkFriend[6])
+                    else:
+                        writeFile(pk,pkFriend[5])
                                                   
             else:
               writeFile(pk)                          
                                                           
-with open('userPK1.csv','r') as f:
+with open('userPK2.csv','r') as f:
 	data = csv.reader(f, delimiter=',')
 	for row in data:
 		findFriends(row[0])		
