@@ -10,26 +10,26 @@ def degree(G):
     with open('degrees.csv', 'w',newline='') as f:
         writeit = csv.writer(f, delimiter=',')
         for node in G.nodes():
-         writeit.writerow([str(node)] + [G.degree(node)])
+         writeit.writerow([G.degree(node)]+[str(node)])
 
 def outDegree(G):
-    with open('out_degrees.csv', 'w') as f:
+    with open('out_degrees.csv', 'w',newline='') as f:
         writeit = csv.writer(f, delimiter=',')
         for node in G.nodes():
-         writeit.writerow([str(node)] + [G.out_degrees(node)])
+         writeit.writerow([G.out_degree(node)]+[str(node)])
 
 def inDegree(G):
     with open('in_degrees.csv', 'w',newline='') as f:
         writeit = csv.writer(f, delimiter=',')
         for node in G.nodes():
-         writeit.writerow([str(node)] + [G.in_degree(node)])
+         writeit.writerow([G.in_degree(node)]+[str(node)])
 
 def writeFile (nodo,cluster):
     with open('clustering.csv', 'a') as f:
 	    writeit = csv.writer(f, delimiter=',', lineterminator='\n')
 	    writeit.writerow(nodo+cluster)
 
-#Método que mostra coeficiente de clustering em uma imagem    
+#Método que salva coeficiente de clustering em um arquivo csv   
 def clustering(G,nodes=None,weight=None):
     if G.is_directed():
         raise NetworkXError('Clustering algorithms are not defined ',
@@ -129,8 +129,9 @@ def closenessCentrality(G):
     cc=nx.closeness_centrality(G)
     print(cc)
 
+#Plota coeficiente de Clustering
 def plotClustering():
-    with open('cluster.csv','r') as inf:
+    with open('clustering.csv','r') as inf:
         x = []
         y = []
         data = csv.reader(inf, delimiter=',')
@@ -138,47 +139,52 @@ def plotClustering():
          tx, ty = line
          x.append((tx))
          #lendo apenas as 4 primeiras strings
-         y.append((ty[0:4]))
+         y.append((ty[0:6]))
 
     c = Counter(y)
-    x1 = c.keys()
-    y1 = c.values()
+    y1 = c.keys()
+    x1 = c.values()
     fig = plt.figure()
-    width =.6
     plt.title('Coeficiente de Clustering')
-    plt.bar(x1,y1,width,color='red')
+    plt.xlabel('Values')
+    plt.ylabel('Count')
+    plt.plot(x1,y1,'ro',color='red')
     fig.savefig('plotClustering.pdf')
     sys.exit(0)
 
+#Plota  Degree, out Degree e in Degree
 def plotDegrees(file):
     with open(file,'r') as inf:
         x = []
         y = []
         data = csv.reader(inf, delimiter=',')
         for line in data:
-         tx, ty = line
+         tx = line[0]
          x.append((tx))
-         #lendo apenas as 4 primeiras strings
-         y.append((ty[0:4]))
 
-    c = Counter(y)
-    x1 = c.keys()
+    c = Counter(x)
     y1 = c.values()
+    x1 = c.keys()
     fig = plt.figure()
-    width =.6
-    plt.title('Degree')
-    plt.bar(x1,y1,width,color='blue')
-    #plt.show()
-    fig.savefig('plot.pdf')
-    
+    plt.title('xxxxx')
+    plt.xlabel("Values")
+    plt.ylabel('Count')
+    plt.plot(x1,y1,'ro',color='black')
+    plt.show()
+    #fig.savefig('Out_Degree.pdf')
+    sys.exit(0)
+
 g = nx.read_weighted_edgelist('grafo.csv',delimiter=',')
-print (nx.info(g))
+g1 = nx.read_edgelist('grafo.csv',delimiter=',',nodetype=int)
+g1 = g1.to_directed()
+print (nx.info(g1))
+#clusteringCoefficient(g)
 degree(g)
-inDegree(g)
-outDegree(g)
+inDegree(g1)
+outDegree(g1)
 closenessCentrality(g)
 clustering(g)
-bw_centrality(G)
+bw_centrality(g)
 edge_bw_centrality(g)
 plotDegrees('degrees.csv')
 plotDegrees('out_degrees.csv')
