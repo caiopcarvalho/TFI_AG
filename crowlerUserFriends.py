@@ -19,7 +19,7 @@ def findFriends(pk):
     
     if(r.status_code==200):
         for body in soup.find_all('body',{'id':'free_member'}):
-            #encontra usuário com amigos
+            #encontra usuário com amigos vv
             if(body.find('table',{'class': 'lesson_grid lesson_grid_members'})):
                 table = soup.find('table',{'class': 'lesson_grid lesson_grid_members'})
                 for row in table.find_all('td'):
