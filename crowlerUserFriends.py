@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 
 def writeFile (pk,pkFriend=" "):
-    with open('users_friends.csv', 'a') as f:
+    with open('users_frfiends.csv', 'a') as f:
 	    writeit = csv.writer(f, delimiter=',', lineterminator='\n')
 	    if(pkFriend == " "):
 	    	writeit.writerow([pk])
