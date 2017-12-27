@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 i=1
 
-with open('userPK2.csv', 'w',newline='') as f:
+with open('userPK2.csv', 'w') as f:
     writeit = csv.writer(f,delimiter=',')
 
     for i in range(1,600): 
